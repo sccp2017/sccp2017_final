@@ -10,14 +10,13 @@ class MarketAccess
     end
 
     # 店情報を追加
-    def add_market() # e.g, {:name => "娯楽"}
-        # ここに記述
+    def add_market(params) # e.g, {:name => "娯楽"}
+        @market.insert(params)
     end
     
     # 全店一覧取得
     def market_all
-        # ここに記述
-        []
+        @market.all
     end
 
     # idから店の情報取得
