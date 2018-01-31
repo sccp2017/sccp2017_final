@@ -10,20 +10,18 @@ class TypeAccess
     end
 
     # 買ったもののタイプを追加する
-    def add_type()
-        # ここに記述
+    def add_type(params)
+        @type.insert(params)
     end
     
     # タイプ一覧
     def type_all
-        # ここに記述
-        []
+        @type.all
     end
     
     # idからタイプ取得
     def get_type_by_id()
-        # ここに記述
-        {}
+        @type.where(id: id)
     end
 
     # 必要なメソッドがあれば以下に追加

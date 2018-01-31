@@ -1,10 +1,11 @@
 require 'sequel'
+require 'time'
 
 class SpendingHistoryAccess
     def initialize(db = Sequel.sqlite("./db/database.db"))
         db.create_table? :spending_history do
             primary_key :id
-            Datetime :spend_at
+            Integer :spend_at # UNIX time
             Integer :type_id
             String :detail
             Integer :payment
@@ -16,20 +17,40 @@ class SpendingHistoryAccess
 
     # 支出テーブルに追加する
     def spend(params)
-        # ここに記述
+        # :spend_atが空なら今の時間を入れる
+        p params
+        if !params.has_key?(:spend_at) || params[:spend_at] == nil then
+            params[:spend_at] = Time.now.to_i
+        else
+            params[:spend_at] = Time.parse(params[:spend_at]).to_i
+        end
+
+        @history.insert(params)
     end
     
     # 全支出履歴の取得
     def history_all
-        # ここに記述
-        []
+        @history.all
     end
 
     # 日付を指定して支出履歴の取得
-    def get_historys_by_date()
-        # ここに記述
-        []
+    def get_historys_by_date(day)
+        @history.where(spend_at: day).all
     end
 
-    # 必要なメソッドがあれば以下に追加
+    # 指定のtype_idの支出
+    def get_historys_by_type(type)
+        @history.where(type_id: type).first
+    end
+    
+    # 指定のmarket_idの支出
+    def get_historys_by_type(market)
+        @history.where(market_id: market).first
+    end
+
+    # 指定の期間の支出履歴の取得
+    def get_history_by_period(first_day, last_day)
+        @history.where(:spend_at => Time.parse(first_day).to_i..Time.parse(last_day).to_i).all
+    end
+    
 end

@@ -20,9 +20,8 @@ class MarketAccess
     end
 
     # idから店の情報取得
-    def get_market_by_id()
-        # ここに記述
-        {}
+    def get_market_by_id(id)
+        @market.where(id: id).first
     end
 
     # 必要なメソッドがあれば以下に追加
