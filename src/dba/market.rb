@@ -23,6 +23,4 @@ class MarketAccess
     def get_market_by_id(id)
         @market.where(id: id).first
     end
-
-    # 必要なメソッドがあれば以下に追加
 end

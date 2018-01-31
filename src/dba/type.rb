@@ -20,9 +20,7 @@ class TypeAccess
     end
     
     # idからタイプ取得
-    def get_type_by_id()
-        @type.where(id: id)
+    def get_type_by_id(id)
+        @type.where(id: id).first
     end
-
-    # 必要なメソッドがあれば以下に追加
 end
