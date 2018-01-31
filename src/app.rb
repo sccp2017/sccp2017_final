@@ -47,8 +47,8 @@ class MainApp < Sinatra::Base
     end
 
     # 店情報を取得するエンドポイント
-    get '/users' do
-        # getはクライアントが情報の塊であるjsonを取得したいので、`json (XXXX)` で返す
+    get '/markets' do
+        # getメソッドはクライアントが情報の塊であるjsonを取得したいので、`json (XXXX)` で返す
         json (@market_access.all)
     end
 
