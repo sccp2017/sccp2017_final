@@ -1,11 +1,8 @@
 require 'sinatra'
-require 'sinatra/reloader'
 require 'sinatra/json'
 require 'json'
 
-require_relative 'dba/type.rb'
-require_relative 'dba/market.rb'
-require_relative 'dba/spending_history.rb'
+require_relative 'dba/history.rb'
 
 class MainApp < Sinatra::Base
     # 支払い情報を追加するエンドポイント
@@ -45,7 +42,6 @@ class MainApp < Sinatra::Base
 
 
         # getメソッドはクライアントが情報の塊であるjsonを取得したいので、`json (XXXX)` で返す
-        p params
         data = @spending_access.get_history_by_period(params[:first], params[:last])
 
         # データがnilの場合、クライアント由来のエラーなので4XXを返す(この場合400)
