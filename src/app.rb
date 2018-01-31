@@ -40,7 +40,7 @@ class MainApp < Sinatra::Base
     post '/markets', provides: :json do
         # HTTPリクエストのJSONのparameterをRubyで扱えるようにパースする
         # :keyがキーになる (e.g, params[:name])
-        params = JSON.parse(request.body.read, {:symbolize_name => true})
+        params = JSON.parse(request.body.read, {:symbolize_names => true})
 
         @market_access.add_market(params)
         status 200 # 成功
