@@ -10,7 +10,7 @@ class MarketAccess
     end
 
     # 店情報を追加
-    def add_market(params) # e.g, {:name => "娯楽"}
+    def add_market(params)
         @market.insert(params)
     end
     

@@ -10,7 +10,7 @@ class TypeAccess
     end
 
     # 買ったもののタイプを追加する
-    def add_type() # e.g, {:name => "娯楽"}
+    def add_type()
         # ここに記述
     end
     

@@ -15,7 +15,7 @@ class SpendingHistoryAccess
     end
 
     # 支出テーブルに追加する
-    def spend() # e.g, {:spend_at => 日付クラス}
+    def spend(params)
         # ここに記述
     end
     
