@@ -22,6 +22,8 @@ $ curl -X POST http://localhost:8080/path/to -d '{"json_key":"json_value"}'
 ```
 
 ## Questions
+なお、解答は `answer` ブランチにあります。わからなかったらそちらを参考にしてください  
+ただ、これが完全に良い実装ではないので、参考にする程度までに留めておいてください  
 ### POSTとGETの実装
 - marketに既に実装されている `/markets` エンドポイントを `type` にも実装する
   - 同じエンドポイント、同じデータベースアクセッサ(ORMで)実装
