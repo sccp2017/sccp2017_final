@@ -8,7 +8,7 @@ class SpendingHistoryAccess
     def initialize(db = Sequel.sqlite("./db/database.db"))
         db.create_table? :spending_history do
             primary_key :id
-            Integer :spend_at # UNIX time
+            Integer :spend_at # monthday (e.g, 1/1 => 101, 12/31 => 1231)
             Integer :category_id
             String :detail
             Integer :payment
@@ -24,9 +24,7 @@ class SpendingHistoryAccess
     def spend(history)
         # :spend_atが空なら今の時間を入れる
         if !history.has_key?(:spend_at) || history[:spend_at] == nil then
-            history[:spend_at] = Time.now.to_i
-        else
-            history[:spend_at] = Time.parse(history[:spend_at]).to_i
+            history[:spend_at] = Time.now.strftime("%m%d").to_i
         end
 
         @history.insert(history)
@@ -41,7 +39,7 @@ class SpendingHistoryAccess
 
     # 日付を指定して支出履歴の取得
     def get_historys_by_date(day)
-        @history.where(spend_at: Time.parse(day).to_i..(Time.parse(day).to_i+24*60*60)).all.map {|history| 
+        @history.where(spend_at: day).all.map {|history| 
             convert_to_response_from_model(history)
         }
     end
@@ -60,7 +58,7 @@ class SpendingHistoryAccess
 
     # 指定の期間の支出履歴の取得
     def get_history_by_period(first_day, last_day)
-        @history.where(:spend_at => Time.parse(first_day).to_i..Time.parse(last_day).to_i).all.map {|history| 
+        @history.where(:spend_at => first_day..last_day).all.map {|history| 
             convert_to_response_from_model(history)
         }
     end
