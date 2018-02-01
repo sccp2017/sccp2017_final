@@ -48,12 +48,14 @@ class SpendingHistoryAccess
 
     # 指定のtype_idの支出
     def get_historys_by_type(type)
-        convert(@history.where(type_id: type).first)
+        data = @history.where(type_id: type).first
+        data == nil ? {} : convert(data)
     end
     
     # 指定のmarket_idの支出
-    def get_historys_by_type(market)
-        convert(@history.where(market_id: market).first)
+    def get_historys_by_market(market)
+        data = @history.where(market_id: market).first
+        data == nil ? {} : convert(data)
     end
 
     # 指定の期間の支出履歴の取得
