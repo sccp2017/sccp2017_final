@@ -59,11 +59,9 @@ class SpendingHistoryAccess
         history == nil ? {} : convert_to_response_from_model(history)
     end
 
-    # 指定の期間の支出履歴の取得 (TODO: )
-    def get_history_by_period(first_day, last_day)
-        @history.where(:spend_at => first_day..last_day).all.map {|history| 
-            convert_to_response_from_model(history)
-        }
+    # 全合計金額
+    def get_sum 
+        @history.sum(:amount)
     end
 
     def convert_to_response_from_model(data)

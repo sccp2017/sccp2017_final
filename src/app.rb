@@ -147,35 +147,18 @@ class MainApp < Sinatra::Base
     
     # 支払い情報を日付から取得するエンドポイント
     #   {
-    #        "date"   : String       // e.g, `2017-01-31`
+    #        "month"   : Integer
+    #        "day"     : Integer
     #   }
-    get '/history/date' do
-        params = JSON.parse(request.body.read, {:symbolize_names => true})
-        month = params[:month]
-        day = params[:day]
+    get '/history/:month/:day' do
+        month = params[:month].to_i
+        day = params[:day].to_i
 
         json (@spending_access.get_historys_by_date(month, day))
     end
 
-    # 支払い情報を期間から取得するエンドポイント
-    # このエンドポイントのjsonのparameterは、
-    #   {
-    #        "first"  : String       // e.g, `2017-01-31`
-    #        "last"   : String       // e.g, `2017-01-31`
-    #   }
-    get '/history/period' do
-        # HTTPリクエストのJSONのparameterをRubyで扱えるようにパースする
-        # :keyがキーになる (e.g, params[:first])
-        params = JSON.parse(request.body.read, {:symbolize_names => true})
-
-        # getメソッドはクライアントが情報の塊であるjsonを取得したいので、`json (XXXX)` で返す
-        data = @spending_access.get_history_by_period(params[:first], params[:last])
-
-        # データがnilの場合、クライアント由来のエラーなので4XXを返す(この場合404)
-        if data == nil then
-            status 404
-        else
-            json (data)
-        end
+    # 支払い総額を取得
+    get '/history/sum' do
+        json (@spending_history.get_sum)
     end
 end
