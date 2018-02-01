@@ -21,15 +21,15 @@ class SpendingHistoryAccess
     end
 
     # 支出テーブルに追加する
-    def spend(params)
+    def spend(history)
         # :spend_atが空なら今の時間を入れる
-        if !params.has_key?(:spend_at) || params[:spend_at] == nil then
-            params[:spend_at] = Time.now.to_i
+        if !history.has_key?(:spend_at) || history[:spend_at] == nil then
+            history[:spend_at] = Time.now.to_i
         else
-            params[:spend_at] = Time.parse(params[:spend_at]).to_i
+            history[:spend_at] = Time.parse(history[:spend_at]).to_i
         end
 
-        @history.insert(params)
+        @history.insert(history)
     end
     
     # 全支出履歴の取得

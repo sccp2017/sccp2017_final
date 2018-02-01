@@ -10,8 +10,8 @@ class MarketAccess
     end
 
     # 店情報を追加
-    def add_market(params)
-        @market.insert(params)
+    def add_market(market)
+        @market.insert(market)
     end
     
     # 全店一覧取得
