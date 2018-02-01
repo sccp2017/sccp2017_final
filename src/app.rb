@@ -5,7 +5,7 @@ require 'json'
 
 require_relative 'dba/type.rb'
 require_relative 'dba/market.rb'
-require_relative 'dba/spending_history.rb'
+require_relative 'dba/history.rb'
 
 class MainApp < Sinatra::Base
     configure :development do
