@@ -68,11 +68,11 @@ historyを取得する系のものは、DBの `spending_history`テーブルか�
 - `src/app.rb` に、前の問題で実装したデータベースアクセッサをAPIエンドポイントに紐付ける
 - それぞれ、以下のエンドポイントを作る
 
-| dba | API endpoint |
-|:---:|:------------:|
-|spend|POST /history|
-|history_all|GET /history/all|
-|get_history_by_date|GET /history|
+| dba | API endpoint | Payload |
+|:---:|:------------:|:-------:|
+|spend|POST /history| {"detail" : "pay electric bill", "market_id": 1, "payment":5700, "type_id": 2} |
+|history_all|GET /history/all| none |
+|get_history_by_date|GET /history| {"date":"2018-02-01"}|
 
 ### 余力ある人向けの実装
 1. `type_id` でhistoryを取得するエンドポイント
@@ -80,6 +80,7 @@ historyを取得する系のものは、DBの `spending_history`テーブルか�
 3. 期間を指定して支払い履歴を取得するエンドポイント
 
 ### さらに余力が有る人向け
-1. N+1問題について調べ、自分の実装がもしそうなっていたら修正する
-2. rubyの例外処理について調べ、起こりうるところに反映させてみる
+1. データベースアクセッサの単体テストを追加する (参考: [library test/unit - doc.ruby-lang.org](https://docs.ruby-lang.org/ja/2.1.0/library/test=2funit.html))
+2. N+1問題について調べ、自分の実装がもしそうなっていたら修正する
+3. rubyの例外処理について調べ、起こりうるところに反映させてみる
 
