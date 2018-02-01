@@ -98,4 +98,8 @@ History (id, commodityName, amount, categoryId, marketId, month, day)
   - `src/dba/history.rb` にある `get_history_by_date` を使う
   - `src/app.rb` にある `get '/history/:month/:day'` を使う
 2. `spending_history` テーブルから今までの支出総額を取得する処理を追加せよ
+3. 商品名( `commodityName` )毎の支払総額を取得する処理を追加せよ
+4. `spending_history` テーブルから今までの支出総額を取得する処理を追加せよ
+5. `category` を指定してその `category` の支出総額を取得する処理を追加せよ
+6. `category` を指定してその `category` の商品一覧を取得する処理を追加せよ
 
