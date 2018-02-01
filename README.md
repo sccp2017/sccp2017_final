@@ -90,3 +90,9 @@ $ curl http://localhost:8080/markets
   - `spending_history` テーブルに支出履歴( `history` )をデータベース登録する処理
   - `spending_history` テーブルから全支出履歴の取得を行う処理
 
+## オプション問題
+1. `spending_history` テーブルからデータを月、日を元に取得できる処理を完成させろ
+  - `src/dba/history.rb` にある `get_history_by_date` を使う
+  - `src/app.rb` にある `get '/history/:month/:day'` を使う
+2. `spending_history` テーブルから今までの支出総額を取得する処理を追加せよ
+
