@@ -78,4 +78,7 @@ class MainApp < Sinatra::Base
     post '/history/date' do
     end
 
+    # 今までの支出総額
+    post 'history/sum' do
+    end
 end
