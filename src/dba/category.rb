@@ -10,8 +10,8 @@ class CategoryAccess
     end
 
     # 買ったもののタイプを追加する
-    def add_category(params)
-        @category.insert(params)
+    def add_category(category)
+        @category.insert(category)
     end
     
     # タイプ一覧

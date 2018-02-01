@@ -34,41 +34,48 @@ class SpendingHistoryAccess
     
     # 全支出履歴の取得
     def history_all
-        @history.all.map {|item| 
-            convert(item)
+        @history.all.map {|history| 
+            convert(history)
         }
     end
 
     # 日付を指定して支出履歴の取得
     def get_historys_by_date(day)
-        @history.where(spend_at: Time.parse(day).to_i..(Time.parse(day).to_i+24*60*60)).all.map {|item| 
-            convert(item)
+        @history.where(spend_at: Time.parse(day).to_i..(Time.parse(day).to_i+24*60*60)).all.map {|history| 
+            convert(history)
         }
     end
 
     # 指定のcategory_idの支出
     def get_historys_by_category(category)
-        data = @history.where(category_id: category).first
-        data == nil ? {} : convert(data)
+        history = @history.where(category_id: category).first
+        history == nil ? {} : convert(history)
     end
     
     # 指定のmarket_idの支出
     def get_historys_by_market(market)
-        data = @history.where(market_id: market).first
-        data == nil ? {} : convert(data)
+        history = @history.where(market_id: market).first
+        history == nil ? {} : convert(history)
     end
 
     # 指定の期間の支出履歴の取得
     def get_history_by_period(first_day, last_day)
-        @history.where(:spend_at => Time.parse(first_day).to_i..Time.parse(last_day).to_i).all.map {|item| 
-            convert(item)
+        @history.where(:spend_at => Time.parse(first_day).to_i..Time.parse(last_day).to_i).all.map {|history| 
+            convert(history)
         }
     end
 
-    def convert(data)
+    def convert_to_response_from_model(data)
+        # DBから抜いてきた状態のままでは、category_id, market_id など、わかりづらいため、
+        # category_id, market_id を それぞれのDBから持ってきたHashに変換する
+
+        # :category をキーとしてcategoryの情報を入れる
         data[:category] = @category_access.get_category_by_id(data[:category_id])
+        # :category にidは含まれているので、元のcategory_idを削除する
         data.delete(:category_id)
+        # :market をキーとしてmarketの情報を入れる
         data[:market] = @category_access.get_category_by_id(data[:market_id])
+        # :market にidは含まれているので、元のmarket_idを削除する
         data.delete(:market_id)
         data
     end
