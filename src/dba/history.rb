@@ -24,8 +24,8 @@ class SpendingHistoryAccess
     # 支出テーブルに追加する
     def spend(history)
         # :spend_month, :spend_dayが空なら今の時間を入れる
-        if !history.has_key?(:month) || history[:month] == nil
-                || !history.has_key?(:month) || history[:day] == nil then
+        if !history.has_key?(:month) || history[:month] == nil ||
+                !history.has_key?(:month) || history[:day] == nil then
             history[:month] = Time.now.month
             history[:day] = Time.now.day
         end
