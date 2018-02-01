@@ -5,7 +5,7 @@ class SpendingHistoryAccess
         db.create_table? :spending_history do
             primary_key :id
             Integer :spend_at
-            Integer :type_id
+            Integer :category_id
             String :detail
             Integer :payment
             Integer :market_id
