@@ -6,16 +6,19 @@ $ rake init
 $ rake start 
 ```
 
-access `localhost:8080`
-
-## 確認の例
+# Sinatra実装の確認
 ```
-# マーケットにデータを挿入
+# 店舗情報(market)を取得
+#  最初は空
+$ curl http://localhost:8080/markets
+[]
+
+# 店舗情報を追加
 $ curl -X POST https://localhost:8080/markets -d {"name":"711"}
 
-# マーケット一覧取得
+# もう一度、店舗情報を確認
 $ curl http://localhost:8080/markets
-{"id":1, "name":"711"}
+[{"id":1, "name":"711"}]
 ```
 
 ## Questions
