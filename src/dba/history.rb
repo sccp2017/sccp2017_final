@@ -27,7 +27,7 @@ class SpendingHistoryAccess
     end
 
     # 日付を指定して支出履歴の取得
-    def get_historys_by_date(date)
+    def get_histories_by_date(date)
         # ここに記述
         []
     end

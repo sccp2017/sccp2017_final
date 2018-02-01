@@ -83,10 +83,10 @@ class MainApp < Sinatra::Base
     end
 
     # 特定の日付の支払履歴のみを抽出する
-    post '/history/date' do
+    get '/history/date' do
     end
 
     # 今までの支出総額
-    post 'history/sum' do
+    get 'history/sum' do
     end
 end
