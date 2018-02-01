@@ -25,7 +25,15 @@ class MainApp < Sinatra::Base
     end
 
     get '/' do
-        'Hello, world'
+        'Hello world'
+    end
+
+    get '/return_status' do
+        1234
+    end
+
+    get '/return_body' do
+        json 1234
     end
 
     get '/ping' do
