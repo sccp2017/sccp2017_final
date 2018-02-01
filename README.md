@@ -72,9 +72,9 @@ History (id, commodityName, amount, categoryId, marketId, month, day)
 注意 - 日付は計算上文字列では面倒なので、整数型で 月日 とします (例: 1月1日 => 101, 12月31日 => 1231)
 
 例:
- history (0, 201, 0, "チョコレート", 120, 1)
- history (1, 131, 2, "洗剤", 450, 0)
- history (2, 130, 1, "DVD", 1500, 2)
+ history (0, "チョコレート", 120, 0, 1, 1, 31)
+ history (1, "洗剤", 450, 2, 0, 12, 25)
+ history (2, "DVD", 130, 1, 2, 11, 30)
 ```
 
 ## Questions
