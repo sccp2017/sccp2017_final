@@ -35,33 +35,33 @@ class SpendingHistoryAccess
     # 全支出履歴の取得
     def history_all
         @history.all.map {|history| 
-            convert(history)
+            convert_to_response_from_model(history)
         }
     end
 
     # 日付を指定して支出履歴の取得
     def get_historys_by_date(day)
         @history.where(spend_at: Time.parse(day).to_i..(Time.parse(day).to_i+24*60*60)).all.map {|history| 
-            convert(history)
+            convert_to_response_from_model(history)
         }
     end
 
     # 指定のcategory_idの支出
     def get_historys_by_category(category)
         history = @history.where(category_id: category).first
-        history == nil ? {} : convert(history)
+        history == nil ? {} : convert_to_response_from_model(history)
     end
     
     # 指定のmarket_idの支出
     def get_historys_by_market(market)
         history = @history.where(market_id: market).first
-        history == nil ? {} : convert(history)
+        history == nil ? {} : convert_to_response_from_model(history)
     end
 
     # 指定の期間の支出履歴の取得
     def get_history_by_period(first_day, last_day)
         @history.where(:spend_at => Time.parse(first_day).to_i..Time.parse(last_day).to_i).all.map {|history| 
-            convert(history)
+            convert_to_response_from_model(history)
         }
     end
 
