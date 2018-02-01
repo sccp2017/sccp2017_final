@@ -58,5 +58,24 @@ class MainApp < Sinatra::Base
         json (@market_access.market_all)
     end
 
-    # 問題に応じて追加していく
+    # カテゴリを追加するエンドポイント
+    post '/categories', provides: :json do
+    end
+
+    # カテゴリ情報を取得するエンドポイント
+    get '/categories' do
+    end
+
+    # 支払履歴に追加するエンドポイント
+    post '/history', provides: :json do
+    end
+
+    # すべての支払履歴を取得する
+    get '/history/all' do
+    end
+
+    # 特定の日付の支払履歴のみを抽出する
+    post '/history/date' do
+    end
+
 end

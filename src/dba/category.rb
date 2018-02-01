@@ -10,7 +10,7 @@ class CategoryAccess
     end
 
     # 買ったもののカテゴリを追加する
-    def add_category()
+    def add_category(category)
         # ここに記述
     end
     
@@ -21,7 +21,7 @@ class CategoryAccess
     end
     
     # idからカテゴリ取得
-    def get_category_by_id()
+    def get_category_by_id(id)
         # ここに記述
         {}
     end

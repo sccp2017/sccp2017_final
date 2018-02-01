@@ -15,7 +15,7 @@ class SpendingHistoryAccess
     end
 
     # 支出テーブルに追加する
-    def spend(params)
+    def spend(spending_history)
         # ここに記述
     end
     
@@ -26,7 +26,7 @@ class SpendingHistoryAccess
     end
 
     # 日付を指定して支出履歴の取得
-    def get_historys_by_date()
+    def get_historys_by_date(date)
         # ここに記述
         []
     end
