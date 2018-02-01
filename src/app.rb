@@ -151,9 +151,10 @@ class MainApp < Sinatra::Base
     #   }
     get '/history/date' do
         params = JSON.parse(request.body.read, {:symbolize_names => true})
-        date = params[:date]
+        month = params[:month]
+        day = params[:day]
 
-        json (@spending_access.get_historys_by_date(date))
+        json (@spending_access.get_historys_by_date(month, day))
     end
 
     # 支払い情報を期間から取得するエンドポイント

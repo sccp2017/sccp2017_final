@@ -8,13 +8,14 @@ class SpendingHistoryAccess
     def initialize(db = Sequel.sqlite("./db/database.db"))
         db.create_table? :spending_history do
             primary_key :id
-            Integer :spend_at # monthday (e.g, 1/1 => 101, 12/31 => 1231)
-            Integer :category_id
-            String :detail
-            Integer :payment
-            Integer :market_id
-            
+            String  :commodityName
+            Integer :amount
+            Integer :categoryId
+            Integer :marketId
+            Integer :month
+            Integer :day
         end
+
         @history = db[:spending_history]
         @category_access = CategoryAccess.new
         @market_access = MarketAccess.new
@@ -22,11 +23,11 @@ class SpendingHistoryAccess
 
     # 支出テーブルに追加する
     def spend(history)
-        # :spend_atが空なら今の時間を入れる
-        if !history.has_key?(:spend_at) || history[:spend_at] == nil then
-            # 少しだけトリッキー
-            # 参考: https://www.rubylife.jp/ini/time_class/index4.html
-            history[:spend_at] = Time.now.strftime("%m%d").to_i
+        # :spend_month, :spend_dayが空なら今の時間を入れる
+        if !history.has_key?(:month) || history[:month] == nil
+                || !history.has_key?(:month) || history[:day] == nil then
+            history[:month] = Time.now.month
+            history[:day] = Time.now.day
         end
 
         @history.insert(history)
@@ -40,8 +41,8 @@ class SpendingHistoryAccess
     end
 
     # 日付を指定して支出履歴の取得
-    def get_historys_by_date(day)
-        @history.where(spend_at: day).all.map {|history| 
+    def get_historys_by_date(month, day)
+        @history.where(:month => month, :day => day).all.map {|history| 
             convert_to_response_from_model(history)
         }
     end
@@ -58,7 +59,7 @@ class SpendingHistoryAccess
         history == nil ? {} : convert_to_response_from_model(history)
     end
 
-    # 指定の期間の支出履歴の取得
+    # 指定の期間の支出履歴の取得 (TODO: )
     def get_history_by_period(first_day, last_day)
         @history.where(:spend_at => first_day..last_day).all.map {|history| 
             convert_to_response_from_model(history)
