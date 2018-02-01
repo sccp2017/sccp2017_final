@@ -41,7 +41,7 @@ class SpendingHistoryAccess
 
     # 日付を指定して支出履歴の取得
     def get_historys_by_date(day)
-        @history.where(spend_at: day).all.map {|item| 
+        @history.where(spend_at: Time.parse(day).to_i..(Time.parse(day).to_i+24*60*60)).all.map {|item| 
             convert(item)
         }
     end

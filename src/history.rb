@@ -30,24 +30,35 @@ class MainApp < Sinatra::Base
     end
 
     # market_id で取得するエンドポイント
-    get '/history/market/:id' do
+    get '/history/markets/:id' do
         id = params[:id]
         json (@spending_access.get_historys_by_market(id))
     end
 
     # type_id で取得するエンドポイント
-    get '/history/type/:id' do
+    get '/history/types/:id' do
         id = params[:id]
         json (@spending_access.get_historys_by_type(id))
     end
+    
+    # 支払い情報を日付から取得するエンドポイント
+    #   {
+    #        "date"   : String       // e.g, `2017-01-31`
+    #   }
+    get '/history/date' do
+        params = JSON.parse(request.body.read, {:symbolize_names => true})
+        date = params[:date]
 
-    # 店情報を日付から取得するエンドポイント
+        json (@spending_access.get_historys_by_date(date))
+    end
+
+    # 支払い情報を期間から取得するエンドポイント
     # このエンドポイントのjsonのparameterは、
     #   {
     #        "first"  : String       // e.g, `2017-01-31`
     #        "last"   : String       // e.g, `2017-01-31`
     #   }
-    get '/history' do
+    get '/history/period' do
         # HTTPリクエストのJSONのparameterをRubyで扱えるようにパースする
         # :keyがキーになる (e.g, params[:name])
 
