@@ -31,4 +31,13 @@ class MainApp < Sinatra::Base
     get '/ping' do
         'pong'
     end
+
+    post '/echo' do
+        params = JSON.parse(request.body.read, {:symbolize_names => true})
+
+        json (params)
+    end
+
+    
+
 end

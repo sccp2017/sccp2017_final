@@ -4,7 +4,10 @@ require 'json'
 
 require_relative 'dba/market.rb'
 
-class MainApp < Sinatra::Base
+class MarketRoute < Sinatra::Base
+    # DBへアクセスするためのクラスを初期化し、フィールドに格納
+    @market_access = MarketAccess.new
+
     # 店情報を追加するエンドポイント
     # このエンドポイントのjsonのparameterは、
     #   {
@@ -16,7 +19,7 @@ class MainApp < Sinatra::Base
         params = JSON.parse(request.body.read, {:symbolize_names => true})
 
         @market_access.add_market(params)
-        status 200 # 成功
+        status 201 # Created
     end
 
     # 店情報を取得するエンドポイント
@@ -33,15 +36,13 @@ class MainApp < Sinatra::Base
         # getメソッドはクライアントが情報の塊であるjsonを取得したいので、`json (XXXX)` で返す
         data = @market_access.get_market_by_id(id)
 
-        # データがない場合、クライアント由来のエラーなので4XXを返す(この場合400)
+        # データがない場合404を返す
         if data == nil then
-            status 400
-            json ({})
-            return
+            status 404
+        else
+            # dataがnilでなければJSONで返す
+            status 200
+            json (data)
         end
-
-        # ここまで到達すれば、data != nil なのでstatus 200 と、dataをjsonにして返す
-        status 200
-        json (data)
     end
 end
