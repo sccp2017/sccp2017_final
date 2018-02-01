@@ -69,7 +69,6 @@ class MainApp < Sinatra::Base
             status 404
         else
             # dataがnilでなければJSONで返す
-            status 200
             json (data)
         end
     end
@@ -106,7 +105,6 @@ class MainApp < Sinatra::Base
         if data == nil then
             status 404
         else
-            status 200
             json (data)
         end
     end
@@ -176,7 +174,6 @@ class MainApp < Sinatra::Base
         if data == nil then
             status 404
         else
-            status 200
             json (data)
         end
     end

@@ -67,15 +67,15 @@ class SpendingHistoryAccess
 
     def convert_to_response_from_model(data)
         # DBから抜いてきた状態のままでは、category_id, market_id など、わかりづらいため、
-        # category_id, market_id を それぞれのDBから持ってきたHashに変換する
+        # category_id, market_id を それぞれのDBから持ってきたHashに変換し、キーを変更する
 
         # :category をキーとしてcategoryの情報を入れる
         data[:category] = @category_access.get_category_by_id(data[:category_id])
-        # :category にidは含まれているので、元のcategory_idを削除する
+        # 上の :category にidは含まれているので、元のcategory_idを削除する
         data.delete(:category_id)
         # :market をキーとしてmarketの情報を入れる
         data[:market] = @category_access.get_category_by_id(data[:market_id])
-        # :market にidは含まれているので、元のmarket_idを削除する
+        # 上の :market にidは含まれているので、元のmarket_idを削除する
         data.delete(:market_id)
         data
     end
