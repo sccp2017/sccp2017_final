@@ -24,22 +24,17 @@ class MainApp < Sinatra::Base
         @spending_access = SpendingHistoryAccess.new
     end
 
+    # curl http://localhost:8080
     get '/' do
-        'Hello world'
-    end
-
-    get '/return_status' do
-        1234
-    end
-
-    get '/return_body' do
         json 1234
     end
 
-    get '/ping' do
-        'pong'
+    # curl http://localhost:8080/12
+    get '/:id' do
+        json({id: params[:id]})
     end
 
+    # curl -X POST http://localhost:8080/echo -d '{"key":"value"}'
     post '/echo' do
         params = JSON.parse(request.body.read, {:symbolize_names => true})
 
