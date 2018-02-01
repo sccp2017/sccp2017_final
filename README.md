@@ -23,7 +23,7 @@ $ curl -X POST http://localhost:8080/path/to -d '{"json_key":"json_value"}'
 
 ## Questions
 ### POSTとGETの実装
-- marketに既に実装されている `/markets` エンドポイントを `type` にも実装する
+- marketに既に実装されている `/markets` エンドポイントを `category` にも実装する
   - 同じエンドポイント、同じデータベースアクセッサ(ORMで)実装
 
 ### src/dba/history.rb にあるメソッド実装
@@ -32,7 +32,7 @@ $ curl -X POST http://localhost:8080/path/to -d '{"json_key":"json_value"}'
 2. `history_all` は、データベースに有るすべての履歴を取得
 3. `get_history_by_date` は、データベースに有る履歴を、特定の日付だけ取得
 
-historyを取得する系のものは、DBの `spending_history`テーブルから引き抜いて返す場合、 `type_id`, `market_id` などとなり、クライアントに不親切なので、 `type`, `market`テーブルからデータを抜き、それを返す
+historyを取得する系のものは、DBの `spending_history`テーブルから引き抜いて返す場合、 `category_id`, `market_id` などとなり、クライアントに不親切なので、 `category`, `market`テーブルからデータを抜き、それを返す
 
 ```
 これは駄目
@@ -42,7 +42,7 @@ historyを取得する系のものは、DBの `spending_history`テーブルか�
     "market_id": 2,
     "payment": null,
     "spend_at": 1517497200, 
-    "type_id": 1, 
+    "category_id": 1, 
 }, 
 
 以下のようなものが理想 (nameだけでも良い)
@@ -55,7 +55,7 @@ historyを取得する系のものは、DBの `spending_history`テーブルか�
     }, 
     "payment": null, 
     "spend_at": 1517497200, 
-    "type": {
+    "category": {
         "id": 1, 
         "name": "aaaa"
     }
@@ -73,6 +73,6 @@ historyを取得する系のものは、DBの `spending_history`テーブルか�
 |get_history_by_date|GET /history|
 
 ### 余力ある人向けの実装
-1. `type_id` でhistoryを取得するエンドポイント
+1. `category_id` でhistoryを取得するエンドポイント
 2. `market_id` でhistoryを取得するエンドポイント
 3. 期間を指定して支払い履歴を取得するエンドポイント

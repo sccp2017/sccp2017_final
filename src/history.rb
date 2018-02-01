@@ -8,7 +8,7 @@ class MainApp < Sinatra::Base
     # 支払い情報を追加するエンドポイント
     # このエンドポイントのjsonのparameterは、
     #   {
-    #        "type_id"   : Integer,
+    #        "category_id"   : Integer,
     #        "market_id" : Integer,
     #        "detail"    : String,
     #        "payment"   : Integer,
@@ -35,10 +35,10 @@ class MainApp < Sinatra::Base
         json (@spending_access.get_historys_by_market(id))
     end
 
-    # type_id で取得するエンドポイント
-    get '/history/types/:id' do
+    # category_id で取得するエンドポイント
+    get '/history/categories/:id' do
         id = params[:id]
-        json (@spending_access.get_historys_by_type(id))
+        json (@spending_access.get_historys_by_category(id))
     end
     
     # 支払い情報を日付から取得するエンドポイント

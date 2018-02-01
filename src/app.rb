@@ -1,11 +1,11 @@
 require 'sinatra'
 require 'sinatra/reloader'
 
-require_relative 'type.rb'
+require_relative 'category.rb'
 require_relative 'market.rb'
 require_relative 'history.rb'
 
-require_relative 'dba/type.rb'
+require_relative 'dba/category.rb'
 require_relative 'dba/market.rb'
 require_relative 'dba/history.rb'
 
@@ -19,7 +19,7 @@ class MainApp < Sinatra::Base
         super()
 
         # DBへアクセスするためのクラスを初期化し、フィールドに格納
-        @type_access = TypeAccess.new
+        @category_access = CategoryAccess.new
         @market_access = MarketAccess.new
         @spending_access = SpendingHistoryAccess.new
     end

@@ -2,21 +2,21 @@ require 'sequel'
 require 'time'
 
 require_relative 'market.rb'
-require_relative 'type.rb'
+require_relative 'category.rb'
 
 class SpendingHistoryAccess
     def initialize(db = Sequel.sqlite("./db/database.db"))
         db.create_table? :spending_history do
             primary_key :id
             Integer :spend_at # UNIX time
-            Integer :type_id
+            Integer :category_id
             String :detail
             Integer :payment
             Integer :market_id
             
         end
         @history = db[:spending_history]
-        @type_access = TypeAccess.new
+        @category_access = CategoryAccess.new
         @market_access = MarketAccess.new
     end
 
@@ -46,9 +46,9 @@ class SpendingHistoryAccess
         }
     end
 
-    # 指定のtype_idの支出
-    def get_historys_by_type(type)
-        data = @history.where(type_id: type).first
+    # 指定のcategory_idの支出
+    def get_historys_by_category(category)
+        data = @history.where(category_id: category).first
         data == nil ? {} : convert(data)
     end
     
@@ -66,9 +66,9 @@ class SpendingHistoryAccess
     end
 
     def convert(data)
-        data[:type] = @type_access.get_type_by_id(data[:type_id])
-        data.delete(:type_id)
-        data[:market] = @type_access.get_type_by_id(data[:market_id])
+        data[:category] = @category_access.get_category_by_id(data[:category_id])
+        data.delete(:category_id)
+        data[:market] = @category_access.get_category_by_id(data[:market_id])
         data.delete(:market_id)
         data
     end
