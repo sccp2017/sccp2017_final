@@ -24,6 +24,8 @@ class SpendingHistoryAccess
     def spend(history)
         # :spend_atが空なら今の時間を入れる
         if !history.has_key?(:spend_at) || history[:spend_at] == nil then
+            # 少しだけトリッキー
+            # 参考: https://www.rubylife.jp/ini/time_class/index4.html
             history[:spend_at] = Time.now.strftime("%m%d").to_i
         end
 
