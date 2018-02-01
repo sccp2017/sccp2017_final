@@ -4,7 +4,8 @@ class SpendingHistoryAccess
     def initialize(db = Sequel.sqlite("./db/database.db"))
         db.create_table? :spending_history do
             primary_key :id
-            Integer :spend_at
+            Integer :spend_month
+            Integer :spend_day
             Integer :category_id
             String :detail
             Integer :payment
