@@ -9,17 +9,17 @@ class CategoryAccess
         @category = db[:category]
     end
 
-    # 買ったもののタイプを追加する
+    # 買ったもののカテゴリを追加する
     def add_category(category)
         @category.insert(category)
     end
     
-    # タイプ一覧
+    # カテゴリ一覧
     def category_all
         @category.all
     end
     
-    # idからタイプ取得
+    # idからカテゴリ取得
     def get_category_by_id(id)
         @category.where(id: id).first
     end

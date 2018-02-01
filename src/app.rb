@@ -118,7 +118,7 @@ class MainApp < Sinatra::Base
     #        "payment"   : Integer,
     #        "spend_at"  : String       // e.g, `2017-01-31` (optional)
     #   }
-    post '/payments', provides: :json do
+    post '/history', provides: :json do
         # HTTPリクエストのJSONのparameterをRubyで扱えるようにパースする
         # :keyがキーになる (e.g, params[:name])
         params = JSON.parse(request.body.read, {:symbolize_names => true})
